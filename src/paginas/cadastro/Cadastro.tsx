@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Usuario from '../../models/Usuario'
 import { cadastrarUsuario } from '../../service/Service'
 import './Cadastro.css'
+import { toastAlerta } from '../../util/ToastAlerta'
 
 function Cadastro() {
 
@@ -14,16 +15,16 @@ function Cadastro() {
     id: 0,
     nome: '',
     usuario: '',
-    foto: '',
-    senha: ''
+    senha: '',
+    foto: ''
   })
 
   const [usuarioResposta, setUsuarioResposta] = useState<Usuario>({
     id: 0,
     nome: '',
     usuario: '',
-    foto: '',
-    senha: ''
+    senha: '',
+    foto: ''
   })
 
   useEffect(() => {
@@ -54,16 +55,16 @@ function Cadastro() {
 
       try {
         await cadastrarUsuario(`/usuarios/cadastrar`, usuario, setUsuarioResposta)
-        alert('Usuário cadastrado com sucesso')
+        toastAlerta('Usuário cadastrado com sucesso', 'sucesso')
 
       } catch (error) {
-        alert('Erro ao cadastrar o Usuário')
+        toastAlerta('Usuário cadastrado com sucesso', 'sucesso')
       }
 
     } else {
-      alert('Dados inconsistentes. Verifique as informações de cadastro.')
-      setUsuario({ ...usuario, senha: "" }) // Reinicia o campo de Senha
-      setConfirmaSenha("")                  // Reinicia o campo de Confirmar Senha
+      toastAlerta('Dados inconsistentes. Verifique as informações de cadastro.', 'erro')
+      setUsuario({ ...usuario, senha: "" }) 
+      setConfirmaSenha("")                  
     }
   }
 
